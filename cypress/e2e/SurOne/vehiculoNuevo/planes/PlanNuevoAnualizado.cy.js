@@ -4,8 +4,7 @@ describe("Nuevo Anualizado - Planes", () => {
       cy.login(credenciales.usuario, credenciales.contraseña);
     });
   });
-
-
+  
 
   // Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado
   it("Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado", () => {
@@ -394,7 +393,6 @@ describe("Nuevo Anualizado - Planes", () => {
       cy.get(
         ".input-iconside > .input-group > .form-floating > .form-control"
       ).type(dato.solicitud.valorComercial);
-
       cy.get(
         ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
       ).then(($select) => {
@@ -447,9 +445,17 @@ describe("Nuevo Anualizado - Planes", () => {
 
 
       console.log("Hola Mundo");
+      console.log("Prueba exitosa")
+      console.log("perueba de fuego");
+      
 
     });
   });
-    console.log("Prueba 1");
+
  
 });
+
+console.log('Pruebasssss prunea de');
+console.log("Merge Testing")
+
+
