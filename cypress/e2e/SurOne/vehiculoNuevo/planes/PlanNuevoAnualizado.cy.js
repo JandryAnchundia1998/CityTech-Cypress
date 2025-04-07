@@ -450,6 +450,6 @@ describe("Nuevo Anualizado - Planes", () => {
 
     });
   });
-
+    console.log("Prueba 1");
  
 });
