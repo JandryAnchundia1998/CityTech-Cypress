@@ -4,8 +4,7 @@ describe("Nuevo Anualizado - Planes", () => {
       cy.login(credenciales.usuario, credenciales.contraseña);
     });
   });
-
-
+  
 
 console.log("Hola mundo");
 
@@ -453,5 +452,6 @@ console.log("Hola mundo");
 });
 
 
-console.log('Hola mundo');
+console.log('Pruebasssss prunea de');
+
 
