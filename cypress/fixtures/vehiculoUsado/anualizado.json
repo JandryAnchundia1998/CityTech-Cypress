@@ -1,0 +1,319 @@
+[
+    {
+      "prueba_1": {
+        "caso": "Vehículo usado con Placa válida y Cédula válida  + accesorios + contrante",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com", 
+          "genero": "MASCULINO"
+        },
+  
+        "personaAsegurar": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1306632504",
+          "estadoCivil": "DIVORCIADO",
+          "provinciaResidencia": "MANABI",
+          "ciudadResidencia": "PORTOVIEJO",
+          "celular": "0959479207",
+          "correo": "eleila@gmail.com",
+          "nacionalidad": "ECUADOR",
+          "genero": "FEMENINO",
+          "relacion": "FAMILIAR",
+          "direccion": "Calle Juan Arnulfo Cevallos"
+        },
+        "vehiculo": {
+          "placa": "GTJ7171",
+          "marca": "PEUGEOT",
+          "modelo": "2008",
+          "anio": "2022"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "caso_1": {
+            "caso": "Validar que los campos corresponden a la placa del caso",
+            "valorComercial": "15000",
+            "esperado": "Información correcta"
+          },
+          "caso_2": {
+            "caso": "Validar accesorios - caso positivo [Dentro del 20% (3000)]",
+            "accesorios": {
+              "articulo_1": "AROS HIERRO",
+              "valor_1": "2000",
+              "articulo_2": "RADIO FIJO",
+              "valor_2": "1000"
+            }
+          },
+          "caso_3": {
+            "caso": "Validar total de precio de accesorios + valorComercial = 18000"
+          },
+          "caso_4": {
+            "caso": "Validar accesorios - caso negativo [supera el 20% (3001)]",
+            "accesorios": {
+              "articulo_1": "AROS HIERRO",
+              "valor_1": "2000",
+              "articulo_2": "RADIO FIJO",
+              "valor_2": "1001"
+            }
+          }
+        },
+  
+        "contratante": {
+          "caso_1": {
+            "caso": "Completar campos obligatorios"
+          },
+          "caso_2": {
+            "caso": "Check -> persona asegura diferente"
+          }
+        }
+      }
+    },
+  
+    {
+      "prueba_2": {
+        "caso": "Vehículo usado con Placa válida y Cédula válida",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com"
+        },
+  
+        "vehiculo": {
+          "placa": "GTJ7171",
+          "marca": "PEUGEOT",
+          "modelo": "2008",
+          "anio": "2022"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "12300"
+        }
+      }
+    },
+    {
+      "prueba_3": {
+        "caso": "1.- Incumplimiento de Formato - Vehículo usado con Placa inválida y Cédula inválida",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678521",
+          "correo": "jandry@gmail.com"
+        },
+  
+        "vehiculo": {
+          "placa": "ABC-123"
+        },
+        "uso": "Particular"
+      }
+    },
+    {
+      "prueba_4": {
+        "caso": "2.- Validacion de placa - Vehículo usado con Placa mayor a 20 años ->1993",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "correo": "jandry@gmail.com"
+        },
+  
+        "vehiculo": {
+          "placa": "PNT0868"
+        },
+        "uso": "Particular"
+      }
+    },
+    {
+      "prueba_5": {
+        "caso": "3.- Validacion de placa poliza vigente",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "correo": "jandry@gmail.com"
+        },
+  
+        "vehiculo": {
+          "placa": "PFF4510"
+        },
+        "uso": "Particular"
+      }
+    },
+    {
+      "prueba_6": {
+        "caso": "4.- Validación vehiculo riesgoso",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "0905187225",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com"
+        },
+  
+        "vehiculo": {
+          "placa": "GTB9955",
+          "marca": "KIA",
+          "modelo": "SPORTAGE R",
+          "anio": "2020"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "12300"
+        }
+      }
+    }, 
+    {
+      "prueba_7": {
+        "caso": "5.- Validacion campos vacios",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "correo": "jandry@gmail.com"
+        },
+  
+        "vehiculo": {
+          "placa": "GTJ7171"
+        },
+        "uso": "Particular"
+      }
+    }, 
+
+    {
+      "prueba_8": {
+        "caso": "6.- Formulario - Incumplimiento de formato",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "123456789",
+          "correo": "jandrygmail.com"
+        },
+  
+        "vehiculo": {
+          "placa": "GTJ7171",
+          "marca": "PEUGEOT",
+          "modelo": "2008",
+          "anio": "2022"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "0"
+        }
+      }
+    },
+    {
+      "prueba_9": {
+        "caso": "7.- Planes - Validacion de contratante",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "0200451342",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com", 
+          "nombre": "JANDRY"
+        },
+  
+        "vehiculo": {
+          "placa": "GTJ7171",
+          "marca": "PEUGEOT",
+          "modelo": "2008",
+          "anio": "2022"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "15000"
+        }
+      }
+    }, 
+    {
+      "prueba_10": {
+        "caso": "8.- Planes - Validación de asegurado",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com"
+        },
+  
+        "personaAsegurar": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "0200451342",
+          "estadoCivil": "DIVORCIADO",
+          "provinciaResidencia": "MANABI",
+          "ciudadResidencia": "PORTOVIEJO",
+          "celular": "0959479207",
+          "correo": "marco@gmail.com",
+          "nacionalidad": "ECUADOR",
+          "genero": "MASCULINO",
+          "relacion": "FAMILIAR",
+          "direccion": "Calle Juan Arnulfo Cevallos"
+        },
+        "vehiculo": {
+          "placa": "GTJ7171",
+          "marca": "PEUGEOT",
+          "modelo": "2008",
+          "anio": "2022"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "15000"
+        }
+
+      }
+    },
+    {
+      "prueba_11": {
+        "caso": "9.- Planes - Validación de 90k",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com"
+        },
+  
+        "personaAsegurar": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1306632504",
+          "estadoCivil": "DIVORCIADO",
+          "provinciaResidencia": "MANABI",
+          "ciudadResidencia": "PORTOVIEJO",
+          "celular": "0959479207",
+          "correo": "marco@gmail.com",
+          "nacionalidad": "ECUADOR",
+          "genero": "FEMENINO",
+          "relacion": "FAMILIAR",
+          "direccion": "Calle Juan Arnulfo Cevallos"
+        },
+        "vehiculo": {
+          "placa": "GTJ7171",
+          "marca": "PEUGEOT",
+          "modelo": "2008",
+          "anio": "2022"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "90000"
+        }
+
+      }
+    }
+  
+  
+  ]
+  

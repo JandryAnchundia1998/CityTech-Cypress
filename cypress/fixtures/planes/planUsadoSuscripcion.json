@@ -1,0 +1,200 @@
+[
+
+  {
+      "VH-Usado-Sucripcion-0": {
+        "caso": "0.-Vehículo Usado con Placa válida y Cédula válida  + accesorios + contrante",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com",
+          "genero": "MASCULINO"
+        },
+        "personaAsegurar": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1306632504",
+          "estadoCivil": "DIVORCIADO",
+          "provinciaResidencia": "MANABI",
+          "ciudadResidencia": "PORTOVIEJO",
+          "celular": "0959479207",
+          "correo": "eleila@gmail.com",
+          "nacionalidad": "ECUADOR",
+          "genero": "FEMENINO",
+          "relacion": "FAMILIAR",
+          "direccion": "Calle Juan Arnulfo Cevallos"
+        },
+        "vehiculo": {
+          "placa": "PDE4567",
+          "marca": "KIA",
+          "modelo": "RIO",
+          "anio": "2021"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "caso_1": {
+            "caso": "Validar que los campos corresponden a la placa del caso",
+            "valorComercial": "15000",
+            "esperado": "Información correcta"
+          },
+          "caso_2": {
+            "caso": "Validar accesorios - caso positivo [Dentro del 20% (3000)]",
+            "accesorios": {
+              "articulo_1": "AROS HIERRO",
+              "valor_1": "2000",
+              "articulo_2": "RADIO FIJO",
+              "valor_2": "1000"
+            }
+          },
+          "caso_3": {
+            "caso": "Validar total de precio de accesorios + valorComercial = 18000"
+          },
+          "caso_4": {
+            "caso": "Validar accesorios - caso negativo [supera el 20% (3001)]",
+            "accesorios": {
+              "articulo_1": "AROS HIERRO",
+              "valor_1": "2000",
+              "articulo_2": "RADIO FIJO",
+              "valor_2": "1001"
+            }
+          }
+        },
+        "contratante": {
+          "caso_1": {
+            "caso": "Completar campos obligatorios"
+          },
+          "caso_2": {
+            "caso": "Check -> persona asegura diferente"
+          }
+        }
+      }
+    },
+    {
+      "VH-Usado-Suscripcion-Bronce-1": {
+        "caso": "1.-VH-Usado-Suscripcion-Bronce",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com", 
+          "genero":"MASCULINO"
+        },
+        "vehiculo": {
+            "placa": "GTJ7171",
+            "marca": "PEUGEOT",
+            "modelo": "2008",
+            "anio": "2022"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "17.000,00"
+        }
+      }
+    },
+    {
+      "VH-Usado-Suscripcion-Oro-2": {
+        "caso": "2.-VH-Usado-Suscripcion-Oro",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "EL ORO",
+          "ciudadResidencia": "MACHALA",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com", 
+          "genero":"MASCULINO"
+        },
+        "vehiculo": {
+            "placa": "PAA1257",
+            "marca": "HYUNDAI",
+            "modelo": "ACCENT",
+            "anio": "2014"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "17000"
+        }
+      }
+    },
+  
+    {
+      "VH-Usado-Suscripcion-3": {
+        "caso": "2.- VH-Usado-Suscripcion-> Vehículo Usado con Placa válida y Cédula válida  + accesorios + contrante",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "PICHINCHA",
+          "ciudadResidencia": "CAYAMBE",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com",
+          "genero": "MASCULINO"
+        },
+        "personaAsegurar": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1306632504",
+          "estadoCivil": "DIVORCIADO",
+          "provinciaResidencia": "MANABI",
+          "ciudadResidencia": "PORTOVIEJO",
+          "celular": "0959479207",
+          "correo": "eleila@gmail.com",
+          "nacionalidad": "ECUADOR",
+          "genero": "FEMENINO",
+          "relacion": "FAMILIAR",
+          "direccion": "Calle Juan Arnulfo Cevallos"
+        },
+        "vehiculo": {
+          "placa": "PDE4567",
+          "marca": "KIA",
+          "modelo": "RIO",
+          "anio": "2021"
+        },
+        "uso": "Particular",
+        "solicitud": {
+
+          "valorComercial": "15.000,00" 
+          
+        },
+        "contratante": {
+          "caso_1": {
+            "caso": "Completar campos obligatorios"
+          },
+          "caso_2": {
+            "caso": "Check -> persona asegura diferente"
+          }
+        }
+      }
+    },
+    {
+      "VH-Usado-Suscripcion-General-4": {
+        "caso": "3.-VH-Usado-Suscripcion-Oro-7",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "EL ORO",
+          "ciudadResidencia": "MACHALA",
+          "celular": "0959479209",
+          "correo": "jandry@gmail.com", 
+          "genero": "MASCULINO"
+        },
+        "vehiculo": {
+          "placa": "PEA4161",
+          "marca": "CHEVROLET",
+          "modelo": "LUV D-MAX",
+          "anio": "2011"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "17.000,00"
+        }
+      }
+    }
+ 
+
+]
