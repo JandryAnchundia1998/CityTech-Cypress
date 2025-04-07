@@ -443,6 +443,11 @@ describe("Nuevo Anualizado - Planes", () => {
       cy.wait(1500)
 
       cy.get('.padding-t40 > .title').should("contain.text", dato.plan.tipo)
+
+
+
+      console.log("Hola Mundo");
+
     });
   });
 
