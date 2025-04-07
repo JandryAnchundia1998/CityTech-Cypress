@@ -7,6 +7,10 @@ describe("Nuevo Anualizado - Planes", () => {
 
 
 
+console.log("Hola mundo");
+
+
+
   // Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado
   it("Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado", () => {
     cy.fixture("planes/planNuevoAnualizado.json").then((datos) => {
@@ -394,7 +398,6 @@ describe("Nuevo Anualizado - Planes", () => {
       cy.get(
         ".input-iconside > .input-group > .form-floating > .form-control"
       ).type(dato.solicitud.valorComercial);
-
       cy.get(
         ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
       ).then(($select) => {
@@ -448,3 +451,7 @@ describe("Nuevo Anualizado - Planes", () => {
 
  
 });
+
+
+console.log('Hola mundo');
+
