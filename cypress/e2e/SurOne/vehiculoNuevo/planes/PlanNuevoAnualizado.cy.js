@@ -442,24 +442,12 @@ describe("Nuevo Anualizado - Planes", () => {
 
       cy.get('.padding-t40 > .title').should("contain.text", dato.plan.tipo)
 
-
-
-      console.log("Hola Mundo");
-      console.log("Prueba exitosa")
-      console.log("perueba de fuego");
       
-
     });
   });
 
  
 });
-
-console.log('Pruebasssss prunea de');
-
-console.log("Merge Testing")
-
-console.log("Prueba Definitiva");
 
 
 
