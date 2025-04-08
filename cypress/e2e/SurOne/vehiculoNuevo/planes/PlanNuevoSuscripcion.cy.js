@@ -5,7 +5,7 @@ describe("Nuevo Suscripcion - Planes", () => {
     });
   });
   // Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado
-  it.only("Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado", () => {
+  it("Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado", () => {
     cy.fixture("planes/planNuevoSuscripcion.json").then((datos) => {
       const prueba = datos[0]; // Acceder a la primera prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_1)
@@ -55,17 +55,19 @@ describe("Nuevo Suscripcion - Planes", () => {
       ) {
         cy.log(`<--Subcaso-->: ${dato.solicitud.caso_1.caso}`);
 
+        const marcaV = dato.vehiculo.marca[0].toUpperCase() + dato.vehiculo.marca.slice(1).toLowerCase();
         cy.get(
           ":nth-child(2) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.marca);
+        ).should("contain.text", marcaV);
 
         cy.get(
           ".mt-3 > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
         ).should("contain.text", dato.vehiculo.anio);
 
+        const modeloV = dato.vehiculo.modelo[0].toUpperCase() + dato.vehiculo.modelo.slice(1).toLowerCase();
         cy.get(
           ":nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.modelo);
+        ).should("contain.text", modeloV);
 
         cy.get(
           ".input-iconside > .input-group > .form-floating > .form-control"
@@ -96,9 +98,7 @@ describe("Nuevo Suscripcion - Planes", () => {
         cy.get(".ng-option-label").click(); // Seleccionar el accesorio de las opciones
 
         // Ingresar el valor del primer accesorio
-        cy.get(
-          ".my-3 > .row > .custom-textbox > .input-group > .form-floating > .form-control"
-        )
+        cy.get('.custom-textbox > .form-control')
           .click()
           .type(accesorios.valor_1); // Ingresar el valor del primer accesorio
 
@@ -124,7 +124,7 @@ describe("Nuevo Suscripcion - Planes", () => {
 
         console.log("Suma de valores ingresados:", sumaValoresIngresados);
 
-        cy.get(":nth-child(1) > .center-items > .info-card > p")
+        cy.get(':nth-child(1) > .center-items > .info-card')
           .invoke("text") // Extrae el texto completo del elemento
           .then((text) => {
             const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
@@ -148,7 +148,7 @@ describe("Nuevo Suscripcion - Planes", () => {
           parseFloat(accesorios.valor_1) +
           parseFloat(accesorios.valor_2) +
           parseFloat(dato.solicitud.caso_1.valorComercial);
-        cy.get(".col-6.center-items > .info-card > p")
+        cy.get('.col-12.center-items > .info-card')
           .invoke("text") // Extrae el texto completo del elemento
           .then((text) => {
             const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
@@ -245,7 +245,7 @@ describe("Nuevo Suscripcion - Planes", () => {
           ":nth-child(8) > :nth-child(2) > .input-group > .form-floating > .form-control"
         ).type(dato.personaAsegurar.correo);
 
-        // cy.get(".my-3.table-buttons > .btn").click();
+        cy.get(".my-3.table-buttons > .btn").click();
       }
     });
   });
@@ -335,10 +335,12 @@ describe("Nuevo Suscripcion - Planes", () => {
 
         if (!currentValue.trim()) {
           // Si el campo está vacío
+          const generoP = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
           cy.get(
             ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
           ).click(); // Abre el select
-          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          //cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          cy.contains('div[role="option"]', generoP).click();
         }
       });
 
@@ -429,10 +431,12 @@ describe("Nuevo Suscripcion - Planes", () => {
 
         if (!currentValue.trim()) {
           // Si el campo está vacío
+          const genero2 = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
           cy.get(
             ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
           ).click(); // Abre el select
-          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          //cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          cy.contains('div[role="option"]', genero2).click();
         }
       });
 
@@ -554,10 +558,12 @@ describe("Nuevo Suscripcion - Planes", () => {
 
         if (!currentValue.trim()) {
           // Si el campo está vacío
+          const genero3 = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
           cy.get(
             ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
           ).click(); // Abre el select
-          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          //cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          cy.contains('div[role="option"]', genero3).click();
         }
       });
 
@@ -677,10 +683,12 @@ describe("Nuevo Suscripcion - Planes", () => {
 
         if (!currentValue.trim()) {
           // Si el campo está vacío
+          const genero4 = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
           cy.get(
             ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
           ).click(); // Abre el select
-          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          //cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          cy.contains('div[role="option"]', genero4).click();
         }
       });
 
