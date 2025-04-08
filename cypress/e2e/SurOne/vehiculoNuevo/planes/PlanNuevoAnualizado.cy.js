@@ -56,19 +56,24 @@ describe("Nuevo Anualizado - Planes", () => {
         dato.solicitud.caso_1.caso ==
         "Validar que los campos corresponden a la placa del caso"
       ) {
-        cy.log(`<--Subcaso-->: ${dato.solicitud.caso_1.caso}`);
-
-        cy.get(
+        cy.log(`<--Subcaso-->: ${dato.solicitud.caso_1.caso}`)
+        const marcaV = dato.vehiculo.marca[0].toUpperCase()+dato.vehiculo.marca.slice(1).toLowerCase();
+        /*cy.get(
           ":nth-child(2) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.marca);
+        ).should("contain.text", dato.vehiculo.marca);*/
+        cy.contains('Marca').parent()
+        .should('include.text', marcaV);
 
         cy.get(
           ".mt-3 > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
         ).should("contain.text", dato.vehiculo.anio);
 
-        cy.get(
+        /*cy.get(
           ":nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.modelo);
+        ).should("contain.text", dato.vehiculo.modelo);*/
+        const modeloV = dato.vehiculo.modelo[0].toUpperCase()+dato.vehiculo.modelo.slice(1).toLowerCase();
+        cy.contains('Modelo').parent()
+        .should('include.text', modeloV);
 
         cy.get(
           ".input-iconside > .input-group > .form-floating > .form-control"
@@ -99,11 +104,11 @@ describe("Nuevo Anualizado - Planes", () => {
         cy.get(".ng-option-label").click(); // Seleccionar el accesorio de las opciones
 
         // Ingresar el valor del primer accesorio
-        cy.get(
+        /*cy.get(
           ".my-3 > .row > .custom-textbox > .input-group > .form-floating > .form-control"
-        )
-          .click()
-          .type(accesorios.valor_1); // Ingresar el valor del primer accesorio
+        )*/
+        cy.get(':nth-child(1) > .my-3 > .row > :nth-child(2) > .input-iconside > .custom-textbox > .form-control')
+        .type(accesorios.valor_1); // Ingresar el valor del primer accesorio
 
         // Hacer clic en "Añadir accesorio"
         cy.get('[formgroupname="newRisk"] > .table-buttons > .btn').click();
@@ -127,7 +132,7 @@ describe("Nuevo Anualizado - Planes", () => {
 
         console.log("Suma de valores ingresados:", sumaValoresIngresados);
 
-        cy.get(":nth-child(1) > .center-items > .info-card > p")
+        cy.get(':nth-child(1) > .center-items > .info-card')
           .invoke("text") // Extrae el texto completo del elemento
           .then((text) => {
             const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
@@ -151,7 +156,7 @@ describe("Nuevo Anualizado - Planes", () => {
           parseFloat(accesorios.valor_1) +
           parseFloat(accesorios.valor_2) +
           parseFloat(dato.solicitud.caso_1.valorComercial);
-        cy.get(".col-6.center-items > .info-card > p")
+        cy.get('.col-12.center-items > .info-card')
           .invoke("text") // Extrae el texto completo del elemento
           .then((text) => {
             const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
@@ -253,7 +258,7 @@ describe("Nuevo Anualizado - Planes", () => {
     });
   });
 
-  it.only("VH-Nuevo-Anualizado-Bronce-1", () => {
+  it("VH-Nuevo-Anualizado-Bronce-1", () => {
     cy.fixture("planes/planNuevoAnualizado.json").then((datos) => {
       const prueba = datos[1]; // Acceder a la segunda prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_2)
@@ -349,6 +354,7 @@ describe("Nuevo Anualizado - Planes", () => {
       ).type(dato.persona.correo);
 
       cy.get(".my-3.table-buttons > .btn").click();
+      //Módulo Pago
     });
   });
 
@@ -395,6 +401,9 @@ describe("Nuevo Anualizado - Planes", () => {
       cy.wait(1500);
       cy.get('[style="padding-inline: 23px;"] > .btn').click();
       cy.wait(2000);
+      
+      cy.contains('Año').parent().find('input').click();
+      cy.contains('div[role="option"]', dato.vehiculo.anio).click();
 
       cy.get(
         ".input-iconside > .input-group > .form-floating > .form-control"
@@ -410,7 +419,10 @@ describe("Nuevo Anualizado - Planes", () => {
           cy.get(
             ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
           ).click(); // Abre el select
-          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          /*
+          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero*/
+          const genero = dato.persona.genero[0].toUpperCase()+dato.persona.genero.slice(1).toLowerCase();
+          cy.contains('div[role="option"]', genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
         }
       });
 
@@ -446,8 +458,9 @@ describe("Nuevo Anualizado - Planes", () => {
 
       cy.wait(1500)
 
-      cy.get('.padding-t40 > .title').should("contain.text", dato.plan.tipo)
-
+      //cy.get('.padding-t40 > .title').should("contain.text", dato.plan.tipo)
+      cy.get(':nth-child(3) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .card-format > .text-header > :nth-child(2) > .title-card > .mb-0')
+      .should("contain.text", dato.plan.tipo)
 
     });
   });
