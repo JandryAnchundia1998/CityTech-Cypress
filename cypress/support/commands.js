@@ -2,11 +2,11 @@ Cypress.Commands.add("login", (usuario, contraseña) => {
     // cy.visit("http://172.16.1.168:8080/login/sign");
     cy.visit("http://172.16.1.23/login/sign");
     cy.document().its("readyState").should("eq", "complete");
-    cy.get(":nth-child(2) > .col-12 > .input-group > .form-floating > .form-control")
-      .type(usuario);
+    cy.get('#floatingInput').type(usuario);
     cy.get(":nth-child(3) > .col-12 > .input-group > .form-floating > .form-control")
       .type(contraseña);
-    cy.get(".login").click();
+   //cy.get(".login").click();
+    cy.get('.btn-large').click();
     cy.get(".justify-content-start > .btn").click();
   });
   

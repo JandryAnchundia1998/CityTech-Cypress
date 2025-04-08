@@ -1,6 +1,7 @@
 describe("Nuevo Anualizado - Planes", () => {
   beforeEach(() => {
     cy.fixture("loginData.json").then((credenciales) => {
+      cy.log(credenciales.usuario)
       cy.login(credenciales.usuario, credenciales.contraseña);
     });
   });
@@ -294,6 +295,9 @@ describe("Nuevo Anualizado - Planes", () => {
       cy.wait(1500);
       cy.get('[style="padding-inline: 23px;"] > .btn').click();
       cy.wait(2000);
+      
+      cy.contains('Año').parent().find('input').click();
+      cy.contains('div[role="option"]', dato.vehiculo.anio).click();
 
       cy.get(
         ".input-iconside > .input-group > .form-floating > .form-control"
@@ -310,7 +314,9 @@ describe("Nuevo Anualizado - Planes", () => {
           cy.get(
             ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
           ).click(); // Abre el select
-          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          //cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          const genero = dato.persona.genero[0].toUpperCase()+dato.persona.genero.slice(1).toLowerCase();
+          cy.contains('div[role="option"]', genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
         }
       });
 
