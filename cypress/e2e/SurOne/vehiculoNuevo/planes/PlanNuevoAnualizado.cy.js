@@ -4,7 +4,7 @@ describe("Nuevo Anualizado - Planes", () => {
       cy.login(credenciales.usuario, credenciales.contraseña);
     });
   });
-  
+
 
   // Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado
   it("Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado", () => {
@@ -252,7 +252,7 @@ describe("Nuevo Anualizado - Planes", () => {
     });
   });
 
-  it("VH-Nuevo-Anualizado-Bronce-1", () => {
+  it.only("VH-Nuevo-Anualizado-Bronce-1", () => {
     cy.fixture("planes/planNuevoAnualizado.json").then((datos) => {
       const prueba = datos[1]; // Acceder a la segunda prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_2)
@@ -347,7 +347,7 @@ describe("Nuevo Anualizado - Planes", () => {
   });
 
 
-  it.only("VH-Nuevo-Anualizado-Oro-2", () => {
+  it("VH-Nuevo-Anualizado-Oro-2", () => {
     cy.fixture("planes/planNuevoAnualizado.json").then((datos) => {
       const prueba = datos[2]; // Acceder a la segunda prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_2)
@@ -442,11 +442,9 @@ describe("Nuevo Anualizado - Planes", () => {
 
       cy.get('.padding-t40 > .title').should("contain.text", dato.plan.tipo)
 
-      
+
     });
   });
-
- 
 });
 
 

@@ -1,6 +1,6 @@
 [
 
-    {
+      {
         "VH-Nuevo-Anualizado-0": {
           "caso": "0.-Vehículo usado con Placa válida y Cédula válida  + accesorios + contrante",
           "persona": {
@@ -86,6 +86,8 @@
           }
         }
       },
+
+      
       {
         "VH-Nuevo-Anualizado-Bronce-1": {
           "caso": "1.-VH-Usado-Anualizado-Bronce",
