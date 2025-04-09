@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^14.2.1"
+    "cypress": "^14.2.1",
+    "cypress-iframe": "^1.0.1"
   },
   "dependencies": {
     "aggregate-error": "^3.1.0",

@@ -21,13 +21,7 @@ Cypress.Commands.add("login", (usuario, contraseña) => {
       .type(dato.uso).type("{enter}");
   });
 
-  Cypress.Commands.add('getIframeBody', (iframeSelector) => {
-    return cy
-      .get(iframeSelector)
-      .its('0.contentDocument.body').should('not.be.empty')
-      .then(cy.wrap);
-  });
-  
+  import 'cypress-iframe';
 
 
 
