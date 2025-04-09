@@ -279,7 +279,7 @@ describe("Nuevo Anualizado - Planes", () => {
        )
          .type(dato.persona.tipoIdentificacion)
          .click();
- 
+
        cy.get(
          ":nth-child(4) > .col-12 > .input-group > .form-floating > .form-control"
        ).type(dato.persona.numeroIdentificacion);
@@ -380,25 +380,10 @@ describe("Nuevo Anualizado - Planes", () => {
           cy.contains("Paga tu nuevo seguro vehicular");
         });
 
-       
-    
-        cy.get('iframe') // Seleccionamos el iframe
-      .its('0.contentDocument') // Accedemos al documento del iframe
-      .its('body') // Seleccionamos el body del iframe
-      .should('be.visible') // Verificamos que el contenido sea visible
-      .within(() => {
-        // Ahora interactuamos con los elementos dentro del iframe
-        cy.get('input[name="card-holder"]').type('Juan Pérez'); // Nombre del titular
-        cy.get('input[name="card-number"]').type('4111111111111111'); // Número de tarjeta
-        cy.get('input[name="expiry"]').type('12/25'); // Fecha de expiración
-        cy.get('input[name="cvc"]').type('123'); // CVC
-      });
+        cy.frameLoaded('#pg_js_sdk_content'); // usa el ID del iframe
 
-        cy.get('#pg_js_sdk_content').should('be.visible').within(()=>{
-          cy.log(dato1.pago.nombreTitular);
-          cy.get('input[placeholder="Nombre del titular"]').type('Juan Pérez');
-          
-        });
+        // Ahora accede al campo dentro del iframe
+        cy.iframe('#pg_js_sdk_content').find('input[name="cardholder_name"]').type('Juan Pérez');
       
 
       });
