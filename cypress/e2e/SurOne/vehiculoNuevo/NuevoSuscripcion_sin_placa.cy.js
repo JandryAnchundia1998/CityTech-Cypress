@@ -113,9 +113,9 @@ describe("Suscripcion Vehículo Usado", () => {
         ).type(dato.persona.correo);
 
 
-        //cLICK EN CONTINUAR 
+        //CLICK EN CONTINUAR 
 
-        cy.get('.btn').click()
+        cy.get('.my-3.table-buttons > .btn').click()
       
     });
   });
