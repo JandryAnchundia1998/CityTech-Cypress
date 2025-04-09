@@ -258,7 +258,7 @@ describe("Nuevo Anualizado - Planes", () => {
     });
   });
 
-  it("VH-Nuevo-Anualizado-Bronce-1", () => {
+  it.only("VH-Nuevo-Anualizado-Bronce-1", () => {
     cy.fixture("planes/planNuevoAnualizado.json").then((datos) => {
       const prueba = datos[1]; // Acceder a la segunda prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_2)
@@ -354,7 +354,56 @@ describe("Nuevo Anualizado - Planes", () => {
       ).type(dato.persona.correo);
 
       cy.get(".my-3.table-buttons > .btn").click();
+
       //Módulo Pago
+      cy.contains("Bronce");
+      cy.get(':nth-child(1) > .btn').click();
+      cy.get('.hire-modal').should('be.visible').within(() =>{
+        cy.contains("Facturación");
+        cy.contains("¿Los mismos datos del contratante van en la factura?");
+      });
+      cy.get('.hire-modal > :nth-child(1) > .table-buttons > .btn').click();
+      cy.wait(8000);
+      cy.get('.form-text-layout').should('be.visible').within(() =>{
+        cy.contains("¡Link de pago enviado!");
+      });
+      cy.get('.svg-funciones-copy').click();
+      cy.get('.form-control').invoke('val').then((linkPDF) =>{
+        cy.visit(linkPDF);
+      });
+      cy.wait(8000);
+      cy.fixture("pagos/planNuevoAnualizado.json").then((datos1) => {
+        const prueba1 = datos1[1]; // Acceder a la segunda prueba
+        const clavePrueba1 = Object.keys(prueba1)[0]; // Obtener la clave (prueba_2)
+        const dato1 = prueba1[clavePrueba1]; 
+        cy.get('.form-text-layout').should('be.visible').within(() =>{
+          cy.contains("Paga tu nuevo seguro vehicular");
+        });
+
+       
+    
+        cy.get('iframe') // Seleccionamos el iframe
+      .its('0.contentDocument') // Accedemos al documento del iframe
+      .its('body') // Seleccionamos el body del iframe
+      .should('be.visible') // Verificamos que el contenido sea visible
+      .within(() => {
+        // Ahora interactuamos con los elementos dentro del iframe
+        cy.get('input[name="card-holder"]').type('Juan Pérez'); // Nombre del titular
+        cy.get('input[name="card-number"]').type('4111111111111111'); // Número de tarjeta
+        cy.get('input[name="expiry"]').type('12/25'); // Fecha de expiración
+        cy.get('input[name="cvc"]').type('123'); // CVC
+      });
+
+        cy.get('#pg_js_sdk_content').should('be.visible').within(()=>{
+          cy.log(dato1.pago.nombreTitular);
+          cy.get('input[placeholder="Nombre del titular"]').type('Juan Pérez');
+          
+        });
+      
+
+      });
+
+
     });
   });
 
