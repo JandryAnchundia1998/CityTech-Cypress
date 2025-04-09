@@ -64,7 +64,7 @@ describe("Suscripcion Vehículo Usado", () => {
 
       cy.get(
         ".ng-invalid.ng-dirty > .mt-3 > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input > input"
-      ).type("2005");
+      ).type(dato.vehiculo.anio); //2005
       cy.get(".ng-option-label").click();
 
       cy.get(
@@ -115,7 +115,7 @@ describe("Suscripcion Vehículo Usado", () => {
 
         //cLICK EN CONTINUAR 
 
-        cy.get('.btn').click()
+        cy.get('.my-3.table-buttons > .btn').click();
       
     });
   });
