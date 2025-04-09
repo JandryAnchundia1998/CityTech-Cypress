@@ -20,6 +20,13 @@ Cypress.Commands.add("login", (usuario, contraseña) => {
     cy.get(":nth-child(6) > .col-12 > .container-ngselect-icon > .ng-select > .ng-select-container > .ng-value-container")
       .type(dato.uso).type("{enter}");
   });
+
+  Cypress.Commands.add('getIframeBody', (iframeSelector) => {
+    return cy
+      .get(iframeSelector)
+      .its('0.contentDocument.body').should('not.be.empty')
+      .then(cy.wrap);
+  });
   
 
 
