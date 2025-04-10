@@ -246,7 +246,7 @@ describe("Usado Anualizado - Planes", () => {
     });
   });
 
-  it.only("VH-Usado-Anualizado-Bronce-1", () => {
+  it("VH-Usado-Anualizado-Bronce-1", () => {
     cy.fixture("planes/planUsadoAnualizado.json").then((datos) => {
       const prueba = datos[1]; // Acceder a la segunda prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_2)
@@ -327,7 +327,7 @@ describe("Usado Anualizado - Planes", () => {
     });
   });
 
-  it("VH-Usado-Anualizado-Oro-2", () => {
+  it.only("VH-Usado-Anualizado-Oro-2", () => {
     cy.fixture("planes/planUsadoAnualizado.json").then((datos) => {
       const prueba = datos[2]; // Acceder a la segunda prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_2)
@@ -373,10 +373,12 @@ describe("Usado Anualizado - Planes", () => {
 
         if (!currentValue.trim()) {
           // Si el campo está vacío
+          const genero4 = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
+
           cy.get(
             ":nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
           ).click(); // Abre el select
-          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          cy.get(".ng-option-label").contains(genero4).click(); // Selecciona la opción correspondiente con dato.persona.genero
         }
       });
 
