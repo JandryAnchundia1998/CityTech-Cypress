@@ -194,7 +194,8 @@
           "provinciaResidencia": "PICHINCHA",
           "ciudadResidencia": "CAYAMBE",
           "celular": "123456789",
-          "correo": "jandrygmail.com"
+          "correo": "jandrygmail.com",
+          "genero": "MASCULINO"
         },
   
         "vehiculo": {
@@ -214,13 +215,14 @@
         "caso": "7.- Planes - Validacion de contratante",
         "persona": {
           "tipoIdentificacion": "CEDULA",
-          "numeroIdentificacion": "0200451342",
+          "numeroIdentificacion": "1704056264",
           "estadoCivil": "SOLTERO",
           "provinciaResidencia": "PICHINCHA",
           "ciudadResidencia": "CAYAMBE",
           "celular": "0959479209",
           "correo": "jandry@gmail.com", 
-          "nombre": "JANDRY"
+          "nombre": "JANDRY",
+          "genero": "MASCULINO"
         },
   
         "vehiculo": {

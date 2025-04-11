@@ -408,7 +408,7 @@ describe("Anualizado Vehículo Usado", () => {
     });
   });
 
-  it("3.- Validacion de placa poliza vigente", () => {
+  it.only("3.- Validacion de placa poliza vigente", () => {
     cy.fixture("vehiculoUsado/anualizado.json").then((datos) => {
       const prueba = datos[4];
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_3)
@@ -444,7 +444,7 @@ describe("Anualizado Vehículo Usado", () => {
       cy.window().then((win) => {
         const bodyText = win.document.body.innerText;
         expect(bodyText).to.include(
-          "La placa está asociada a una póliza vigente hasta 14/09/2025. Para renovar, por favor comunícate con tu asesor comercial."
+          "La placa esta asociada a una póliza vigente hasta 14/09/2025. Para renovar, por favor comunícate con tu asesor comercial."
         );
         expect(bodyText).to.include("CÓDIGO: S10");
       });
@@ -697,18 +697,18 @@ describe("Anualizado Vehículo Usado", () => {
       
       const marcaV = dato.vehiculo.marca[0].toUpperCase() + dato.vehiculo.marca.slice(1).toLowerCase();
 
-      cy.contains('Marca').parent().find('input').click();
-      cy.get('div[role="option"]').contains(marcaV).click();
-
-      cy.contains('Modelo').parent().find('input').click();
-      cy.get('div[role="option"]').contains(dato.vehiculo.modelo).click();
-
-      cy.contains('Año').parent().find('input').click();
-      cy.get('div[role="option"]').contains(dato.vehiculo.anio).click();
+      cy.contains('Marca').parent().invoke('text').should('include', marcaV);
+      cy.contains('Modelo').parent().invoke('text').should('include', dato.vehiculo.modelo);
+      cy.contains('Año').parent().invoke('text').should('include', dato.vehiculo.anio);
 
       cy.get(
         ".input-iconside > .input-group > .form-floating > .form-control"
       ).type(dato.solicitud.valorComercial);
+
+      const genero11 = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
+
+      cy.get(':nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container').click();
+      cy.get('div[role="option"]').contains(genero11).click();
 
       cy.get(
         ":nth-child(4) > :nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input > input"
@@ -738,12 +738,14 @@ describe("Anualizado Vehículo Usado", () => {
       cy.get(".my-3.table-buttons > .btn").click();
       cy.wait(3000);
 
-      cy.get(':nth-child(2) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .m-4 > .text-header > .btn-content > .table-buttons > :nth-child(1) > .btn')
-      .click();
-      cy.wait(2500);
+      cy.get(':nth-child(1) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .card-format').should('be.visible').within(()=>{
+        cy.contains('Contratar').parent()
+        .click();
+      });
+      cy.wait(2000);
 
-      // cy.get(':nth-child(2) > .subtitle')
-      // .should("contain.text", `${dato.persona.nombre} está muy cerca de asegurar su ${dato.vehiculo.marca} ${dato.vehiculo.modelo}`);
+
+
       cy.window().then((win) => {
         const bodyText = win.document.body.innerText;
         expect(bodyText).to.include(
@@ -820,6 +822,11 @@ describe("Anualizado Vehículo Usado", () => {
         ".row.my-3 > :nth-child(2) > .input-group > .form-floating > .form-control"
       ).type(dato.persona.correo);
 
+      const genero12 = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
+
+      cy.get(':nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container').click();
+      cy.get('div[role="option"]').contains(genero12).click();
+
       //Click en el check de: Diferente Contratante
       cy.get("form.ng-dirty > :nth-child(4) > div > .form-check-label").click();
 
@@ -877,7 +884,7 @@ describe("Anualizado Vehículo Usado", () => {
       cy.get(':nth-child(2) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .m-4 > .text-header > .btn-content > .table-buttons > :nth-child(1) > .btn').click()
 
       cy.wait(2500)
-      cy.window().then((win) => {
+      cy.window().then((win) => {c
         const bodyText = win.document.body.innerText;
         expect(bodyText).to.include(
           "La cédula del asegurado tiene inconvenientes, por favor comunícate con tu asesor comercial para iniciar el proceso de desbloqueo de tu cliente. Una vez desbloqueado, puedes continuar con su contratación en el módulo de negocios."
@@ -890,7 +897,7 @@ describe("Anualizado Vehículo Usado", () => {
 
 
   // 9.- Planes - Validación de 90k
-  it.only("9.- Planes - Validación de 90k", () => {
+  it("9.- Planes - Validación de 90k", () => {
     cy.fixture("vehiculoUsado/anualizado.json").then((datos) => {
       const prueba = datos[10]; // Acceder a la primera prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_1)
@@ -1027,7 +1034,7 @@ describe("Anualizado Vehículo Usado", () => {
             // cy.get(':nth-child(2) > .subtitle')
       // .should("contain.text", `${dato.persona.nombre} está muy cerca de asegurar su ${dato.vehiculo.marca} ${dato.vehiculo.modelo}`);
 
-      cy.get(':nth-child(2) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .m-4 > .text-header > .btn-content > .table-buttons > :nth-child(1) > .btn').click()
+      //cy.get(':nth-child(2) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .m-4 > .text-header > .btn-content > .table-buttons > :nth-child(1) > .btn').click()
 
       cy.wait(2500)
       cy.window().then((win) => {
