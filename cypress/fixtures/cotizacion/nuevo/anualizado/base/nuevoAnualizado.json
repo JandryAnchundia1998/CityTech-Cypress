@@ -1,0 +1,27 @@
+[
+  {
+      "VH-Nuevo-Anualizado-General": {
+          "caso": "VH-Nuevo-Anualizado-General",
+          "persona": {
+              "tipoIdentificacion": "CEDULA",
+              "numeroIdentificacion": "1313678524",
+              "estadoCivil": "SOLTERO",
+              "provinciaResidencia": "PICHINCHA",
+              "ciudadResidencia": "CAYAMBE",
+              "celular": "0959479209",
+              "correo": "flujonuevo_qa@yopmail.com",
+              "genero": "MASCULINO"
+          },
+          "vehiculo": {
+              "placa": "GXG0553",
+              "marca": "CHEVROLET",
+              "modelo": "LUV",
+              "anio": "2014"
+          },
+          "uso": "Particular",
+          "solicitud": {
+              "valorComercial": "15000"
+          }
+      }
+  }
+]
