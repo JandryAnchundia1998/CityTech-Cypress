@@ -1,4 +1,5 @@
 Cypress.Commands.add("login", (usuario, contraseña) => {
+
     cy.visit("http://172.16.1.168:8080/login/sign");
     // cy.visit("http://172.16.1.23/login/sign");
     cy.document().its("readyState").should("eq", "complete");
