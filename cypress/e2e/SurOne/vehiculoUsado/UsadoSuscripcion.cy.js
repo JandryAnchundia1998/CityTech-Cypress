@@ -48,17 +48,18 @@ describe("Suscripcion Vehículo Usado", () => {
       ) {
         cy.log(`<--Subcaso-->: ${dato.solicitud.caso_1.caso}`);
 
-        cy.get(
-          ":nth-child(2) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.marca);
+        const marcaV = dato.vehiculo.marca[0].toUpperCase() + dato.vehiculo.marca.slice(1).toLowerCase();
 
-        cy.get(
-          ".mt-3 > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.anio);
+        cy.contains('Marca').parent().find('input').click();
+        cy.get('div[role="option"]').contains(marcaV).click();
 
-        cy.get(
-          ":nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.modelo);
+        cy.contains('Año').parent().find('input').click();
+        cy.get('div[role="option"]').contains(dato.vehiculo.anio).click();
+
+        const modeloV = dato.vehiculo.modelo[0].toUpperCase() + dato.vehiculo.modelo.slice(1).toLowerCase();
+
+        cy.contains('Modelo').parent().find('input').click();
+        cy.get('div[role="option"]').contains(modeloV).click();
 
         cy.get(
           ".input-iconside > .input-group > .form-floating > .form-control"
@@ -89,7 +90,7 @@ describe("Suscripcion Vehículo Usado", () => {
         cy.get(".ng-option-label").click(); // Seleccionar el accesorio de las opciones
 
         // Ingresar el valor del primer accesorio
-        cy.get('.my-3 > .row > .custom-textbox > .input-group > .form-floating > .form-control').click().type(accesorios.valor_1); // Ingresar el valor del primer accesorio
+        cy.get('.custom-textbox > .form-control').click().type(accesorios.valor_1); // Ingresar el valor del primer accesorio
 
         // Hacer clic en "Añadir accesorio"
         cy.get('[formgroupname="newRisk"] > .table-buttons > .btn').click();
@@ -109,7 +110,7 @@ describe("Suscripcion Vehículo Usado", () => {
 
         console.log("Suma de valores ingresados:", sumaValoresIngresados);
 
-        cy.get(":nth-child(1) > .center-items > .info-card > p")
+        cy.get(':nth-child(1) > .center-items > .info-card')
           .invoke("text") // Extrae el texto completo del elemento
           .then((text) => {
             const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
@@ -133,7 +134,7 @@ describe("Suscripcion Vehículo Usado", () => {
           parseFloat(accesorios.valor_1) +
           parseFloat(accesorios.valor_2) +
           parseFloat(dato.solicitud.caso_1.valorComercial);
-        cy.get(".col-6.center-items > .info-card > p")
+          cy.get('.col-12.center-items > .info-card')
           .invoke("text") // Extrae el texto completo del elemento
           .then((text) => {
             const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
