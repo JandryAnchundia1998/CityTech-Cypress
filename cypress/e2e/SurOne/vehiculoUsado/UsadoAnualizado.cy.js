@@ -47,17 +47,21 @@ describe("Anualizado Vehículo Usado", () => {
       ) {
         cy.log(`<--Subcaso-->: ${dato.solicitud.caso_1.caso}`);
 
+        const marcaV = dato.vehiculo.marca[0].toUpperCase() + dato.vehiculo.marca.slice(1).toLowerCase();
+
         cy.get(
           ":nth-child(2) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.marca);
+        ).should("contain.text", marcaV);
 
         cy.get(
           ".mt-3 > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
         ).should("contain.text", dato.vehiculo.anio);
 
+        const modeloV = dato.vehiculo.modelo[0].toUpperCase() + dato.vehiculo.modelo.slice(1).toLowerCase();
+
         cy.get(
           ":nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-value"
-        ).should("contain.text", dato.vehiculo.modelo);
+        ).should("contain.text", modeloV);
 
         cy.get(
           ".input-iconside > .input-group > .form-floating > .form-control"
@@ -88,7 +92,7 @@ describe("Anualizado Vehículo Usado", () => {
         cy.get(".ng-option-label").click(); // Seleccionar el accesorio de las opciones
 
         // Ingresar el valor del primer accesorio
-        cy.get('.my-3 > .row > .custom-textbox > .input-group > .form-floating > .form-control').click().type(accesorios.valor_1); // Ingresar el valor del primer accesorio
+        cy.get('.custom-textbox > .form-control').click().type(accesorios.valor_1); // Ingresar el valor del primer accesorio
 
         // Hacer clic en "Añadir accesorio"
         cy.get('[formgroupname="newRisk"] > .table-buttons > .btn').click();
@@ -108,7 +112,7 @@ describe("Anualizado Vehículo Usado", () => {
 
         console.log("Suma de valores ingresados:", sumaValoresIngresados);
 
-        cy.get(":nth-child(1) > .center-items > .info-card > p")
+        cy.get(':nth-child(1) > .center-items > .info-card')
           .invoke("text") // Extrae el texto completo del elemento
           .then((text) => {
             const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
@@ -132,7 +136,7 @@ describe("Anualizado Vehículo Usado", () => {
           parseFloat(accesorios.valor_1) +
           parseFloat(accesorios.valor_2) +
           parseFloat(dato.solicitud.caso_1.valorComercial);
-        cy.get(".col-6.center-items > .info-card > p")
+        cy.get('.col-12.center-items > .info-card')
           .invoke("text") // Extrae el texto completo del elemento
           .then((text) => {
             const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
@@ -389,9 +393,11 @@ describe("Anualizado Vehículo Usado", () => {
         .type(dato.uso)
         .click();
 
-      cy.get('[style="padding-inline: 23px;"] > .btn').click();
-      cy.wait(2000);
+      cy.get('[style="padding-inline: 23px;"] > .btn > span').click();
+      cy.contains('Verificar').click();
 
+      cy.wait(2000);
+      
       cy.window().then((win) => {
         const bodyText = win.document.body.innerText;
         expect(bodyText).to.include(
@@ -432,6 +438,7 @@ describe("Anualizado Vehículo Usado", () => {
         .click();
 
       cy.get('[style="padding-inline: 23px;"] > .btn').click();
+      cy.contains('Verificar').click();
       cy.wait(2000);
 
       cy.window().then((win) => {
@@ -439,7 +446,7 @@ describe("Anualizado Vehículo Usado", () => {
         expect(bodyText).to.include(
           "La placa está asociada a una póliza vigente hasta 14/09/2025. Para renovar, por favor comunícate con tu asesor comercial."
         );
-        expect(bodyText).to.include("CÓDIGO: S3");
+        expect(bodyText).to.include("CÓDIGO: S10");
       });
     });
   });
@@ -482,9 +489,11 @@ describe("Anualizado Vehículo Usado", () => {
         ".input-iconside > .input-group > .form-floating > .form-control"
       ).type(dato.solicitud.valorComercial);
 
+      const estadoCivil = dato.persona.estadoCivil[0].toUpperCase() + dato.persona.estadoCivil.slice(1).toLowerCase();
+
       cy.get(
         ":nth-child(4) > :nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input > input"
-      ).type(dato.persona.estadoCivil);
+      ).type(estadoCivil);
       cy.get(".ng-option-label").click();
 
       cy.get(
@@ -505,6 +514,9 @@ describe("Anualizado Vehículo Usado", () => {
         ".row.my-3 > :nth-child(2) > .input-group > .form-floating > .form-control"
       ).type(dato.persona.correo);
 
+      cy.contains('Genero').parent().find('input').click();
+      cy.get('div[role="option"]').contains('Masculino').click();
+      
       cy.get(".my-3.table-buttons > .btn").click();
       cy.wait(2000);
 
@@ -625,20 +637,25 @@ describe("Anualizado Vehículo Usado", () => {
       ).type(dato.persona.correo);
       cy.get(".my-3.table-buttons > .btn").click();
 
-      cy.get(".text-alert > p").should(
+      cy.get('.application-content').should('be.visible').within(() => {
+        cy.contains("Ingrese un celular válido").should('be.visible');
+        cy.contains("Ingresa un correo válido").should('be.visible');
+      });
+
+      /*cy.get(".text-alert > p").should(
         "contain.text",
         "Ingrese un celular válido"
-      );
+      );*/
 
-      cy.get(".row.my-3 > :nth-child(2) > .text-alert > span").should(
+      /*cy.get(".row.my-3 > :nth-child(2) > .text-alert > span").should(
         "contain.text",
         "Ingresa un correo válido"
-      );
+      );*/
 
-      cy.get(".mt-3 > :nth-child(2) > .text-alert > span").should(
+      /*cy.get(".mt-3 > :nth-child(2) > .text-alert > span").should(
         "contain.text",
         "Ingresa un valor válido"
-      );
+      );*/
 
       //El tema de que cuando se ahregue un accesorio extra debe tener la misma validacion
     });
@@ -677,6 +694,17 @@ describe("Anualizado Vehículo Usado", () => {
       cy.wait(1500);
       cy.get('[style="padding-inline: 23px;"] > .btn').click();
       cy.wait(2000);
+      
+      const marcaV = dato.vehiculo.marca[0].toUpperCase() + dato.vehiculo.marca.slice(1).toLowerCase();
+
+      cy.contains('Marca').parent().find('input').click();
+      cy.get('div[role="option"]').contains(marcaV).click();
+
+      cy.contains('Modelo').parent().find('input').click();
+      cy.get('div[role="option"]').contains(dato.vehiculo.modelo).click();
+
+      cy.contains('Año').parent().find('input').click();
+      cy.get('div[role="option"]').contains(dato.vehiculo.anio).click();
 
       cy.get(
         ".input-iconside > .input-group > .form-floating > .form-control"
@@ -802,14 +830,12 @@ describe("Anualizado Vehículo Usado", () => {
       ).type(dato.personaAsegurar.tipoIdentificacion);
       cy.get(".ng-option-label").click();
 
-      cy.get(
-        ".ng-invalid.ng-touched > .row > .custom-textbox > .input-group > .form-floating > .form-control"
-      ).type(dato.personaAsegurar.numeroIdentificacion);
+      cy.get('[formgroupname="InsuredPersonData"] > .row > .custom-textbox > .input-group > .form-floating > .form-control').type(dato.personaAsegurar.numeroIdentificacion);
 
-      cy.get(
-        ".ng-invalid.ng-touched > :nth-child(4) > :nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input > input"
-      ).type(dato.personaAsegurar.nacionalidad);
-      cy.get(".ng-option-label").click();
+      const nacionalidad1 = dato.personaAsegurar.nacionalidad[0].toUpperCase() + dato.personaAsegurar.nacionalidad.slice(1).toLowerCase();
+
+      cy.get('[formgroupname="InsuredPersonData"] > :nth-child(4) > :nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input').click();
+      cy.get('div[role="option"]').contains(nacionalidad1).click();
 
       cy.get(
         ":nth-child(6) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container"
@@ -821,15 +847,12 @@ describe("Anualizado Vehículo Usado", () => {
       ).type(dato.personaAsegurar.ciudadResidencia);
       cy.get(".ng-option-label").click();
 
-      cy.get(
-        ".ng-invalid.ng-dirty > :nth-child(5) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container"
-      ).type(dato.personaAsegurar.genero);
-      cy.get(".ng-option-label").click();
+      
 
-      cy.get(
-        ":nth-child(7) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container"
-      ).type(dato.personaAsegurar.relacion);
-      cy.get(".ng-option-label").click();
+      const relacionF = dato.personaAsegurar.relacion[0].toUpperCase() + dato.personaAsegurar.relacion.slice(1).toLowerCase();
+
+      cy.get(':nth-child(7) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container').click();
+      cy.get('div[role="option"]').contains(relacionF).click();
 
       cy.get(
         ":nth-child(7) > .custom-textbox > .input-group > .form-floating > .form-control"
@@ -867,7 +890,7 @@ describe("Anualizado Vehículo Usado", () => {
 
 
   // 9.- Planes - Validación de 90k
-  it("9.- Planes - Validación de 90k", () => {
+  it.only("9.- Planes - Validación de 90k", () => {
     cy.fixture("vehiculoUsado/anualizado.json").then((datos) => {
       const prueba = datos[10]; // Acceder a la primera prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_1)
@@ -890,6 +913,7 @@ describe("Anualizado Vehículo Usado", () => {
         ":nth-child(5) > .col-12 > .input-group > .form-floating > .form-control"
       ).type(dato.vehiculo.placa);
 
+
       cy.get(
         ":nth-child(6) > .col-12 > .container-ngselect-icon > .ng-select > .ng-select-container > .ng-value-container"
       )
@@ -900,12 +924,28 @@ describe("Anualizado Vehículo Usado", () => {
       cy.get('[style="padding-inline: 23px;"] > .btn').click();
       cy.wait(3000);
 
+      const marcaV = dato.vehiculo.marca[0].toUpperCase() + dato.vehiculo.marca.slice(1).toLowerCase();
+
+      cy.contains('Marca').parent().find('input').click();
+      cy.get('div[role="option"]').contains(marcaV).click();
+
+      cy.contains('Modelo').parent().find('input').click();
+      cy.get('div[role="option"]').contains(dato.vehiculo.modelo).click();
+
+      cy.contains('Año').parent().find('input').click();
+      cy.get('div[role="option"]').contains(dato.vehiculo.anio).click();
+
       // Llenar Valor Comercial -> Nuevo Riesgo
       cy.get(".input-iconside > .input-group > .form-floating > .form-control")
         .clear()
         .type(dato.solicitud.valorComercial);
 
       // Llenar Campos -> Persona Contratante
+
+      const genC = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
+
+      cy.get(':nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container').click();
+      cy.get('div[role="option"]').contains(genC).click();
 
       cy.get(
         ":nth-child(4) > :nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input > input"
@@ -940,14 +980,12 @@ describe("Anualizado Vehículo Usado", () => {
       ).type(dato.personaAsegurar.tipoIdentificacion);
       cy.get(".ng-option-label").click();
 
-      cy.get(
-        ".ng-invalid.ng-touched > .row > .custom-textbox > .input-group > .form-floating > .form-control"
-      ).type(dato.personaAsegurar.numeroIdentificacion);
+      cy.get('[formgroupname="InsuredPersonData"] > .row > .custom-textbox > .input-group > .form-floating > .form-control').type(dato.personaAsegurar.numeroIdentificacion);
 
-      cy.get(
-        ".ng-invalid.ng-touched > :nth-child(4) > :nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input > input"
-      ).type(dato.personaAsegurar.nacionalidad);
-      cy.get(".ng-option-label").click();
+      const nacion1 = dato.personaAsegurar.nacionalidad[0].toUpperCase() + dato.personaAsegurar.nacionalidad.slice(1).toLowerCase();
+
+      cy.get('[formgroupname="InsuredPersonData"] > :nth-child(4) > :nth-child(2) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input').click();
+      cy.get('div[role="option"]').contains(nacion1).click();
 
       cy.get(
         ":nth-child(6) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container"

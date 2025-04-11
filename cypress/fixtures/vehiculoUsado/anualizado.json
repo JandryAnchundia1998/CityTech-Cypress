@@ -123,7 +123,7 @@
         },
   
         "vehiculo": {
-          "placa": "PNT0868"
+          "placa": "PYH-0156"
         },
         "uso": "Particular"
       }
@@ -284,7 +284,8 @@
           "provinciaResidencia": "PICHINCHA",
           "ciudadResidencia": "CAYAMBE",
           "celular": "0959479209",
-          "correo": "jandry@gmail.com"
+          "correo": "jandry@gmail.com",
+          "genero": "MASCULINO"
         },
   
         "personaAsegurar": {
