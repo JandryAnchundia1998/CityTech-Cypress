@@ -408,7 +408,7 @@ describe("Anualizado Vehículo Usado", () => {
     });
   });
 
-  it.only("3.- Validacion de placa poliza vigente", () => {
+  it("3.- Validacion de placa poliza vigente", () => {
     cy.fixture("vehiculoUsado/anualizado.json").then((datos) => {
       const prueba = datos[4];
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_3)
@@ -822,10 +822,10 @@ describe("Anualizado Vehículo Usado", () => {
         ".row.my-3 > :nth-child(2) > .input-group > .form-floating > .form-control"
       ).type(dato.persona.correo);
 
-      const genero12 = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
 
-      cy.get(':nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container').click();
-      cy.get('div[role="option"]').contains(genero12).click();
+
+      //cy.get(':nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container').click();
+      //cy.get('div[role="option"]').contains(dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase()).click();
 
       //Click en el check de: Diferente Contratante
       cy.get("form.ng-dirty > :nth-child(4) > div > .form-check-label").click();
@@ -873,6 +873,16 @@ describe("Anualizado Vehículo Usado", () => {
         ":nth-child(8) > :nth-child(2) > .input-group > .form-floating > .form-control"
       ).type(dato.personaAsegurar.correo);
 
+      const generoC = dato.persona.genero[0].toUpperCase() + dato.persona.genero.slice(1).toLowerCase();
+
+      cy.get(':nth-child(4) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container').click();
+      cy.get('div[role="option"]').contains(generoC).click();
+
+      const generoA = dato.personaAsegurar.genero[0].toUpperCase() + dato.personaAsegurar.genero.slice(1).toLowerCase();
+
+      cy.get('.ng-invalid.ng-touched > :nth-child(5) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container').click();
+      cy.get('div[role="option"]').contains(generoA).click();
+
       //Dar click en Continuar
       cy.wait(1500);
       cy.get(".my-3.table-buttons > .btn").click();
@@ -881,10 +891,13 @@ describe("Anualizado Vehículo Usado", () => {
             // cy.get(':nth-child(2) > .subtitle')
       // .should("contain.text", `${dato.persona.nombre} está muy cerca de asegurar su ${dato.vehiculo.marca} ${dato.vehiculo.modelo}`);
 
-      cy.get(':nth-child(2) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .m-4 > .text-header > .btn-content > .table-buttons > :nth-child(1) > .btn').click()
+      cy.get(':nth-child(2) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .card-format').should('be.visible').within(()=>{
+        cy.contains('Contratar').parent().click();
+        //cy.wait(2000);
+      });
 
       cy.wait(2500)
-      cy.window().then((win) => {c
+      cy.window().then((win) => {
         const bodyText = win.document.body.innerText;
         expect(bodyText).to.include(
           "La cédula del asegurado tiene inconvenientes, por favor comunícate con tu asesor comercial para iniciar el proceso de desbloqueo de tu cliente. Una vez desbloqueado, puedes continuar con su contratación en el módulo de negocios."
@@ -897,7 +910,7 @@ describe("Anualizado Vehículo Usado", () => {
 
 
   // 9.- Planes - Validación de 90k
-  it("9.- Planes - Validación de 90k", () => {
+  it.only("9.- Planes - Validación de 90k", () => {
     cy.fixture("vehiculoUsado/anualizado.json").then((datos) => {
       const prueba = datos[10]; // Acceder a la primera prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_1)
@@ -932,15 +945,17 @@ describe("Anualizado Vehículo Usado", () => {
       cy.wait(3000);
 
       const marcaV = dato.vehiculo.marca[0].toUpperCase() + dato.vehiculo.marca.slice(1).toLowerCase();
+      cy.contains('Marca').parent().invoke('text').then((texto=>{
+        expect(texto).to.include(marcaV);
+      }));
 
-      cy.contains('Marca').parent().find('input').click();
-      cy.get('div[role="option"]').contains(marcaV).click();
+      cy.contains('Modelo').parent().invoke('text').then((texto=>{
+        expect(texto).to.include(dato.vehiculo.modelo);
+      }));
 
-      cy.contains('Modelo').parent().find('input').click();
-      cy.get('div[role="option"]').contains(dato.vehiculo.modelo).click();
-
-      cy.contains('Año').parent().find('input').click();
-      cy.get('div[role="option"]').contains(dato.vehiculo.anio).click();
+      cy.contains('Año').parent().invoke('text').then((texto=>{
+        expect(texto).to.include(dato.vehiculo.anio);
+      }));
 
       // Llenar Valor Comercial -> Nuevo Riesgo
       cy.get(".input-iconside > .input-group > .form-floating > .form-control")
@@ -1035,14 +1050,17 @@ describe("Anualizado Vehículo Usado", () => {
       // .should("contain.text", `${dato.persona.nombre} está muy cerca de asegurar su ${dato.vehiculo.marca} ${dato.vehiculo.modelo}`);
 
       //cy.get(':nth-child(2) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .m-4 > .text-header > .btn-content > .table-buttons > :nth-child(1) > .btn').click()
+      cy.get(':nth-child(3) > .policy-card-content > mf-security-policy-plan-card > .border-card > .card > .card-format').should('be.visible').within(()=>{
+        cy.contains('Contratar').parent().click();
+      });
 
-      cy.wait(2500)
+      //cy.wait(2500)
       cy.window().then((win) => {
         const bodyText = win.document.body.innerText;
         expect(bodyText).to.include(
-          "El valor a asegurar del vehículo supera los $90,000, por favor comunícate con tu ejecutivo de soporte Nivel 1 para iniciar el proceso de aprobación.Una vez aprobado, puedes continuar con su contratación en el módulo de negocios"
+          "El valor a asegurar del vehículo supera los $90,000, por favor comunícate con tu ejecutivo de soporte Nivel 1 para iniciar el proceso de aprobación. Una vez aprobado, puedes continuar con su contratación en el módulo de negocios."
         );
-        expect(bodyText).to.include("CÓDIGO: S1");
+        expect(bodyText).to.include("CÓDIGO: S11");
  
       });
     });

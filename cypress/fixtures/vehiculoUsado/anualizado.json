@@ -247,12 +247,13 @@
           "provinciaResidencia": "PICHINCHA",
           "ciudadResidencia": "CAYAMBE",
           "celular": "0959479209",
-          "correo": "jandry@gmail.com"
+          "correo": "jandry@gmail.com",
+          "genero": "MASCULINO"
         },
   
         "personaAsegurar": {
           "tipoIdentificacion": "CEDULA",
-          "numeroIdentificacion": "0200451342",
+          "numeroIdentificacion": "1715404826",
           "estadoCivil": "DIVORCIADO",
           "provinciaResidencia": "MANABI",
           "ciudadResidencia": "PORTOVIEJO",
