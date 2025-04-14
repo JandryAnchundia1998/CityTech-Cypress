@@ -1,5 +1,6 @@
 describe("VH-Nuevo-Anualizado-aseguradoDiferente", () => {
     beforeEach(() => {
+        cy.clearSession();
       cy.fixture("loginData.json").then((credenciales) => {
         cy.log(credenciales.usuario);
         cy.login(credenciales.usuario, credenciales.contraseña);
@@ -80,101 +81,13 @@ describe("VH-Nuevo-Anualizado-aseguradoDiferente", () => {
                 .clear()
                 .type(dato.solicitud.caso_1.valorComercial);
             }
-            /*
-            // Subcaso 2: Validar accesorios - caso positivo
-            if (
-              dato.solicitud.caso_2.caso ===
-              "Validar accesorios - caso positivo [Dentro del 20% (3000)]"
-            ) {
-              cy.log(`<--Subcaso-->: ${dato.solicitud.caso_2.caso}`);
-      
-              cy.get(
-                "div.ng-dirty > .radiocheck-content > div > .form-check-label"
-              ).click();
-      
-              const accesorios = dato.solicitud.caso_2.accesorios;
-      
-              //Validar accesorios - caso positivo [Dentro del 20% (3000)]
-      
-              // Ingresar el primer accesorio (artículo 1)
-              cy.get(
-                ":nth-child(1) > .col-12 > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input > input"
-              ).type(accesorios.articulo_1); // Ingresar el nombre del accesorio
-              cy.get(".ng-option-label").click(); // Seleccionar el accesorio de las opciones
-      
-              // Ingresar el valor del primer accesorio
-              //cy.get(
-                //".my-3 > .row > .custom-textbox > .input-group > .form-floating > .form-control"
-              //)
-              cy.get(':nth-child(1) > .my-3 > .row > :nth-child(2) > .input-iconside > .custom-textbox > .form-control')
-              .type(accesorios.valor_1); // Ingresar el valor del primer accesorio
-      
-              // Hacer clic en "Añadir accesorio"
-              cy.get('[formgroupname="newRisk"] > .table-buttons > .btn').click();
-      
-              // Ingresar el segundo accesorio (artículo 2)
-              cy.get(
-                "div.ng-pristine > .my-3 > :nth-child(1) > .col-12 > .container-ngselect-icon > .ng-select-searchable > .ng-select-container > .ng-value-container > .ng-input > input"
-              ).type(accesorios.articulo_2); // Ingresar el nombre del accesorio
-              cy.get(".ng-option-label").click(); // Seleccionar el accesorio de las opciones
-      
-              // Ingresar el valor del segundo accesorio
-              cy.get(
-                ".ng-invalid.ng-touched > .my-3 > .row > :nth-child(2) > .input-iconside > .custom-textbox > .form-control"
-              )
-                .click()
-                .type(accesorios.valor_2); // Ingresar el valor del segundo accesorio
-      
-              //********* Valores coinciden correctamente
-              
-              const sumaValoresIngresados =
-                parseFloat(accesorios.valor_1) + parseFloat(accesorios.valor_2);
-      
-              console.log("Suma de valores ingresados:", sumaValoresIngresados);
-      
-              cy.get(':nth-child(1) > .center-items > .info-card')
-                .invoke("text") // Extrae el texto completo del elemento
-                .then((text) => {
-                  const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
-                  cy.log(`Número extraído: ${numeroExtraido}`); // Imprime el número completo en los logs
-      
-                  // Validar que la suma coincida con el número extraído
-                  expect(numeroExtraido).to.equal(sumaValoresIngresados);
-                });
-            }
-      
-            // Subcaso 3: Validar total de precio de accesorios + valorComercial = 18000
-            if (
-              dato.solicitud.caso_3.caso ===
-              "Validar total de precio de accesorios + valorComercial = 18000"
-            ) {
-              cy.log(`<--Subcaso-->: ${dato.solicitud.caso_3.caso}`);
-      
-              const accesorios = dato.solicitud.caso_2.accesorios;
-      
-              const sumaValorTotal =
-                parseFloat(accesorios.valor_1) +
-                parseFloat(accesorios.valor_2) +
-                parseFloat(dato.solicitud.caso_1.valorComercial);
-              cy.get('.col-12.center-items > .info-card')
-                .invoke("text") // Extrae el texto completo del elemento
-                .then((text) => {
-                  const numeroExtraido = parseFloat(text.match(/\d+/g).join("")); // Extraer todos los dígitos y convertirlos a número
-                  cy.log(`Número extraído: ${numeroExtraido}`); // Imprime el número completo en los logs
-                  // Validar que la suma coincida con el número extraído
-                  expect(numeroExtraido).to.equal(sumaValorTotal);
-                });
-            }
-            */
-
+            
             // Subcaso 4: Completas campos - Solictud
             if (dato.contratante.caso_1.caso === "Completar campos obligatorios") {
               //Condicional clave
       
               //cy.get('[formgroupname="contractingPerson"]')
-              cy.log(dato.persona.genero);
-              cy.pause();
-
+              
               cy.genero('[formgroupname="contractingPerson"]', dato.persona.genero);
       
               cy.get(
@@ -232,11 +145,7 @@ describe("VH-Nuevo-Anualizado-aseguradoDiferente", () => {
               ).type(dato.personaAsegurar.ciudadResidencia);
               cy.get(".ng-option-label").click();
       
-              //cy.get(
-                //'[formgroupname="InsuredPersonData"] > :nth-child(5) > :nth-child(1) > .container-ngselect-icon > .ng-select-searchable > .ng-select-container'
-              //).type(dato.personaAsegurar.genero);
-              //cy.get(".ng-option-label").click();
-              //cy.get('form.ng-dirty > .ng-invalid.ng-touched')
+              
              cy.genero('form.ng-dirty > .ng-invalid.ng-touched', dato.personaAsegurar.genero);
 
       

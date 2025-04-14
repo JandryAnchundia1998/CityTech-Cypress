@@ -76,20 +76,15 @@ Cypress.Commands.add('clearSession', () => {
 Cypress.Commands.add("genero", (etiqueta, genero) => {
 
   cy.get(etiqueta).should('be.visible').within(()=>{
-    cy.contains('Genero').parent().then(($select) => {
+    cy.contains('Genero').parent().invoke('text').then((text) => {
       // Verificamos si el valor del campo es vacío comparando el texto del input de búsqueda
-      const deshabilitado = $select.is(':disabled');
-      const lectura = $select.prop('readonly');
-      const lleno = $select.val()?.trim().length>0;
-      const generoU = genero[0].toUpperCase()+ genero.slice(1).toLowerCase();
-      cy.log(!lectura);
-      cy.log(generoU);
-      cy.pause();
 
-      if(!deshabilitado && !lectura && !lleno){
+      const generoU = genero[0].toUpperCase()+ genero.slice(1).toLowerCase();
+
+
+      if(text.slice(-generoU.length) === generoU){
           cy.contains('Genero').parent().invoke('text').then((el)=>{
-              cy.log(el.trim());
-              cy.pause();
+            
               expect(el.trim().slice(-generoU.length)).to.equal(generoU);
 
           });
