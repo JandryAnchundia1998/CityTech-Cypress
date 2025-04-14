@@ -72,3 +72,36 @@ Cypress.Commands.add('clearSession', () => {
   // Limpiar caché (aunque no es directamente soportado, se puede hacer por extensión del navegador)
   cy.clearAllLocalStorage();
 });
+
+Cypress.Commands.add("genero", (etiqueta, genero) => {
+
+  cy.get(etiqueta).should('be.visible').within(()=>{
+    cy.contains('Genero').parent().then(($select) => {
+      // Verificamos si el valor del campo es vacío comparando el texto del input de búsqueda
+      const deshabilitado = $select.is(':disabled');
+      const lectura = $select.prop('readonly');
+      const lleno = $select.val()?.trim().length>0;
+      const generoU = genero[0].toUpperCase()+ genero.slice(1).toLowerCase();
+      cy.log(!lectura);
+      cy.log(generoU);
+      cy.pause();
+
+      if(!deshabilitado && !lectura && !lleno){
+          cy.contains('Genero').parent().invoke('text').then((el)=>{
+              cy.log(el.trim());
+              cy.pause();
+              expect(el.trim().slice(-generoU.length)).to.equal(generoU);
+
+          });
+
+      }else{
+          
+          cy.contains('Genero').parent().find('input').click(); // Abre el select
+          /*
+          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero*/
+          cy.get('div[role="option"]').contains(generoU).click(); // Selecciona la opción correspondiente con dato.persona.genero
+
+      }
+    });
+  });
+});
