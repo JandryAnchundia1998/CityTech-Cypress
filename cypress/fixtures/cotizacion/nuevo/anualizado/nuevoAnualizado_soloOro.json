@@ -1,0 +1,31 @@
+[
+    {
+      "VH-Nuevo-Anualizado-soloOro": {
+        "caso": "VH-Nuevo-Anualizado-soloOro",
+        "persona": {
+          "tipoIdentificacion": "CEDULA",
+          "numeroIdentificacion": "1313678524",
+          "estadoCivil": "SOLTERO",
+          "provinciaResidencia": "EL ORO",
+          "ciudadResidencia": "MACHALA",
+          "celular": "0959479209",
+          "correo": "jandryorlando311098@gmail.com", 
+          "genero": "MASCULINO"
+        },
+        "vehiculo": {
+          "placa": "PEA4161",
+          "marca": "CHEVROLET",
+          "modelo": "LUV D-MAX",
+          "anio": "2018"
+        },
+        
+        "plan": {
+            "tipo": "Oro"
+        },
+        "uso": "Particular",
+        "solicitud": {
+          "valorComercial": "17000"
+        }
+      }
+    }
+]

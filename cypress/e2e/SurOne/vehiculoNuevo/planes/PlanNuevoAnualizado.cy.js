@@ -8,7 +8,7 @@ describe("Nuevo Anualizado - Planes", () => {
 
 
   // Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado
-  it("Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado", () => {
+  it.only("Debe validar el flujo para vehículo usado con placa válida y cédula válida + accesorios + contratanteAsegurado", () => {
     cy.fixture("planes/planNuevoAnualizado.json").then((datos) => {
       const prueba = datos[0]; // Acceder a la primera prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_1)
@@ -258,7 +258,7 @@ describe("Nuevo Anualizado - Planes", () => {
     });
   });
 
-  it.only("VH-Nuevo-Anualizado-Bronce-1", () => {
+  it("VH-Nuevo-Anualizado-Bronce-1", () => {
     cy.fixture("planes/planNuevoAnualizado.json").then((datos) => {
       const prueba = datos[1]; // Acceder a la segunda prueba
       const clavePrueba = Object.keys(prueba)[0]; // Obtener la clave (prueba_2)

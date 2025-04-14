@@ -61,3 +61,14 @@ Cypress.Commands.add("login", (usuario, contraseña) => {
 //     .should('not.be.empty')
 //     .then(cy.wrap);
 // });
+
+Cypress.Commands.add('clearSession', () => {
+  // Limpiar cookies
+  cy.clearCookies();
+  
+  // Limpiar localStorage
+  cy.clearLocalStorage();
+  
+  // Limpiar caché (aunque no es directamente soportado, se puede hacer por extensión del navegador)
+  cy.clearAllLocalStorage();
+});
