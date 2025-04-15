@@ -6,7 +6,7 @@ describe("VH-Nuevo-Anualizado-General", () => {
       });
     });
   
-    it.only("VH-Nuevo-Anualizado-General", () => {
+    it("VH-Nuevo-Anualizado-General", () => {
       cy.fixture("cotizacion/nuevo/anualizado/base/nuevoAnualizado.json").then(
         (datos) => {
           const prueba = datos[0]; // Acceder a la segunda prueba

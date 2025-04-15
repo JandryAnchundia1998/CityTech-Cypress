@@ -1,36 +1,83 @@
-Eres un QA Senior y tu tarea es redactar un informe de pruebas basado en la Historia de Usuario que te voy a proporcionar.
-
-El informe debe estar bien estructurado y completo, sin omitir ningún detalle relevante. Asegúrate de que cada caso de prueba cubra todas las funcionalidades descritas en la historia de usuario.
+Eres un QA Senior y tu tarea es redactar un informe (no en formato Excel o de tabla) de pruebas basado en la Historia de Usuario que te voy a proporcionar. Tu misión es hacer un informe de pruebas exhaustivo que garantice el 100% de cobertura de esta historia de usuario.
+El informe debe estar bien estructurado y completo, sin omitir ningún detalle. Asegúrate de que cada caso de prueba cubra todas las funcionalidades y criterios de aceptación descritos en la historia de usuario.
 
 El formato del informe debe seguir esta estructura:
-
 Número y nombre del caso de prueba
-
 Descripción del caso de prueba
-
 Precondiciones (Requisitos previos o configuraciones necesarias)
-
 Pasos de ejecución (Acciones detalladas que debe seguir el tester)
-
 Resultado esperado (Comportamiento esperado del sistema tras la ejecución del caso de prueba)
-
 El informe debe ser claro, preciso y profesional. ¡No dejes escapar ningún detalle crítico!
-
 Criterios de Aceptación:
 
+Gestionar Cotizaciones estado "Validación Documental" subestado "Pendiente"
+
+Como Ejecutivo de Aseguradora,
+quiero gestionar las cotizaciones en estado Validación Documental y subestado Pendiente bajo el modelo Suscripción y Anualizado cuando el vehículo es nuevo
+para ejecutar acciones comerciales como abrir, cambiar, completar, editar, desistir, garantizando una adecuada continuidad o cierre del proceso comercial según corresponda.
+
+Insumos: Figma
+https://www.figma.com/proto/h7Cpz9U1x5KIYtbz1m39Pe/Dise%C3%B1o-de-interfaz---Plataforma?node-id=10861-231854&t=USsVRmv8PtDIP8vk-0&scaling=min-zoom&content-scaling=fixed&page-id=4%3A0&starting-point-node-id=1887%3A47540
+
+Plantillas de Correo:
+https://docs.google.com/spreadsheets/d/18TXpas31HbtzFTES-UIizvo7ypwohHEl3uOAxOnHYw8/edit?gid=0#gid=0
+
+El estado: Validación Documental -> subestado: Pendiente se genera al realizar el Pago Exitoso desde el módulo de Cotización de un Vehículo Nuevo. En paralelo también se ejecuta la solicitud para completar el FVC, el estado que se visualiza en pantalla es "FVC", si el FVC es lo primero que se completa y no la Validación Documental del Vehículo el estado que se visualiza en pantalla debe ser "Val Doc".
+
+Los estados de Validación Documental que se deben considerar son:
+Se inicia con estado Pendiente, cuando se reporta un error desde el Módulo de Validación Documental el estado cambia de Pendiente ->Por Corregir.
+Si el APS corrige el error que se reporto a través del Formulario de Validación el estado cambia de Por Corregir ->Pendiente.
+Este proceso de puede repetir hasta que los documentos sean aprobados.
+Si el Ejecutivo de Validación aprueba los documentos el estado cambia de Pendiente -> Aprobado.
+Si la cotización estaba pendiente el FVC el estado de la cotización cambia de Validación Documental -> FVC, si el FVC ya estaba completo o No Aplica el estado de la cotización cambia de Validación Documental -> Firma: subestado: Pendiente
+Si la cotización se encuentra en estado Validación y subestado: "Pendiente" y "Por Corregir" y es de modelo Suscripción  se deben habilitar las siguientes acciones:
+Abrir Validación Documental: Permite abrir el formulario de Validación Documental descrito en la historia 5400. 
+Cambiar a Autoinspección: Permite cambiar el Tipo de Inspección de la cotización de Validación Documental -> Inspección
+Editar contactos: Permite modificar datos antes de continuar con el proceso.
+Desistir: Cancela la cotización si el cliente no desea continuar.
+Reasignar: permite reasignar la cotización a un nuevo Ejecutivo para que realice la gestión.
+Si la cotización es de modelo Anualizado, se deben habilitar las mismas acciones y agregar la siguiente:
+Completar negocio: Marca la cotización como ganada sin proceso de inspección, FVC, Firma (para gestión manual).
+
+Acción: Cambiar a Autoinspección
+​Cuando se cambia al proceso de Autoinspección se debe cambiar el estado de Validación Documental -> Inspección subestado: Nuevo
+Se debe enviar automáticamente el SMS al cliente para que inicie con el proceso de Autoinspección de su vehículo
+Se debe crear un registro en SIAERP para la gestión de la Autoinspección. 
+
+Acción: Editar contactos
 
 
+Al hacer clic en "Editar", se levanta un modal con los siguientes campos precargados desde el módulo de Cotización, Número de Cotización junto a la palabra Cotización:
 
+Campo	Estado	Validaciones
+Correo	    Habilitado	        Obligatorio – Validar formato de e-mail
+Celular	    Habilitado	        Obligatorio – Validar formato celular
+De acuerdo a las imagenes CamposFormatoPago.jpg y CamposObligatoriosPago.jpg
+Funcionalidades adicionales:
+Si se modifica el campo Correo o Celular se debe cambiar la versión de la cotización. Ejemplo de SVPs25000335.01 a  SVPs25000335.02
+Al hacer clic en Guardar se actualiza el archivo PDF de la cotización con los valores modificados.
 
+Acción: Desistir
+Al seleccionar "Desistir", se muestra un desplegable obligatorio para seleccionar el motivo del desistimiento que es un catálogo con las siguientes opciones: Cliente en Lista Negra, Coberturas, Falta de seguimiento, Forma de pago, No existe bien asegurado, Por comisión del APS, Por relación con la aseguradora actual, Por situación económica actual del cliente, Por venta del vehículo, Precio tasa, Producto, Tiempo de respuesta.
+Se muestra los dos nombres y apellidos del cliente
+Si la Validación Documental esta Pendiente y decide Desistir de la cotización el mismo día que se realizo el pago:
+El estado de la cotización cambia de Validación Documental: Subestado "Pendiente" -> Negocio: Subestado "Perdido", adicionalmente el Pago cambia de Exitoso -> Reversado
+Se debe guardar el motivo de la Cancelación para mostrarlo en el Estado del negocio (MotivoCancelaciónValidacionDia.jpg)
+Se inhabilitan todas las acciones posteriores sobre esa cotización.
+El registro queda visible en el listado principal para fines de trazabilidad, pero sin opción de modificación o reactivación.
+Si la Validación Documental esta Pendiente y decide Desistir de la cotización y ya pasaron 24 horas que se realizó el pago:
+El estado de la cotización cambia de Validación Documental: Subestado "Pendiente" -> Reverso: Subestado "Pendiente", adicionalmente se guarda el estado de Negocio: Subestado "Perdido". 
+Se debe guardar el motivo de la Cancelación para mostrarlo en el Estado del negocio (MotivoCancelaciónValidacionHoras.jpg)
+Se envía un correo al cliente para solicitar que llene el formulario de pago para la devolución de su dinero, el nombre de la plantilla es "Negocio_Perdido_Desiste_Contratar_Cliente_Botón"
 
+Acción: Completar negocio
+Se levanta un modal con los siguientes campos para su ingreso: Póliza y Fecha de Inicio de Vigencia (CompletarNegocio.jpg), los dos campos son obligatorios, el campo póliza debe tener una longitud de 8 dígitos, caso contrario se muestra la imagen (LongitudPoliza.jpg)
+El estado de la cotización cambia de Validación Documental: Subestado "Pendiente" -> Negocio: Subestado "Ganado". (NegocioGanadoValidacion.jpg)
+Se inhabilitan todas las acciones posteriores sobre esa cotización.
 
-
-
-
-
-
-
-
-
-
+Acción: Reasignar
+Se debe levantar un modal de acuerdo al figma, https://www.figma.com/proto/h7Cpz9U1x5KIYtbz1m39Pe/Dise%C3%B1o-de-interfaz---Plataforma?node-id=12888-223036&t=gqbBHRta18aHwkUq-0&scaling=min-zoom&content-scaling=fixed&page-id=4%3A0&starting-point-node-id=1887%3A47540
+Se debe mostrar el Número de Cotización
+Se debe listar los Ejecutivos que pertenecen al APS
+Si se reasigna la cotización puede ser visualizada por el nuevo ejecutivo asignado.
 
