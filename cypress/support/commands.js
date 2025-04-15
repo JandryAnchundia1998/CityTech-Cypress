@@ -80,9 +80,8 @@ Cypress.Commands.add("genero", (etiqueta, genero) => {
       // Verificamos si el valor del campo es vacío comparando el texto del input de búsqueda
 
       const generoU = genero[0].toUpperCase()+ genero.slice(1).toLowerCase();
-
-
-      if(text.slice(-generoU.length) === generoU){
+    
+      if(text.trim().replace(/ /g, '').slice(-generoU.length) === generoU){
           cy.contains('Genero').parent().invoke('text').then((el)=>{
             
               expect(el.trim().slice(-generoU.length)).to.equal(generoU);
@@ -90,12 +89,15 @@ Cypress.Commands.add("genero", (etiqueta, genero) => {
           });
 
       }else{
-          
-          cy.contains('Genero').parent().find('input').click(); // Abre el select
-          /*
-          cy.get(".ng-option-label").contains(dato.persona.genero).click(); // Selecciona la opción correspondiente con dato.persona.genero*/
-          cy.get('div[role="option"]').contains(generoU).click(); // Selecciona la opción correspondiente con dato.persona.genero
 
+        cy.contains('Genero').parent().invoke('text').then((text1) => {
+
+          if(text1.trim().replace(/ /g, '').slice(-generoU.length) != generoU){
+
+            cy.contains('Genero').parent().find('input').click(); // Abre el select
+            cy.get('div[role="option"]').contains(generoU).click(); // Selecciona la opción correspondiente con dato.persona.genero
+          }
+        });
       }
     });
   });
